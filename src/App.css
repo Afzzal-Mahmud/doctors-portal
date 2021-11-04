@@ -1,0 +1,10 @@
+/* container for all item to look good */
+body{
+  margin: 0;
+  background-color: #f1e6e6;
+}
+.container{
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1170px;
+}
