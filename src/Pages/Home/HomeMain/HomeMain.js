@@ -1,4 +1,5 @@
 import React from "react";
+import AppoinmentBanner from "../../AppointmentBanner/AppointmentBanner";
 import Services from "../../ServicesMain/Services/Services";
 
 function HomeMain() {
@@ -8,6 +9,7 @@ function HomeMain() {
             hello form home
         </h2>
         <Services></Services>
+        <AppoinmentBanner></AppoinmentBanner>
         </>
     )
 }

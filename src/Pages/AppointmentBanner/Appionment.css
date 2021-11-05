@@ -1,0 +1,15 @@
+.appionment-main{
+    background: url('../../images/appointment-bg.png'),radial-gradient(rgb(85 86 100 / 84%),rgb(83 83 106 / 87%));;
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    margin-top: 12em;
+    min-height: 30vh;
+}
+.doctor-img-container{
+    position: relative;
+}
+.doctor-img-container img {
+    position: absolute;
+    left: 45px;
+    top: -132px;
+}
