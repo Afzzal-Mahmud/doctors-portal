@@ -1,7 +1,8 @@
 import './App.css';
 import {BrowserRouter as Router, Link, Switch, Route, BrowserRouter} from 'react-router-dom';
-import Home from './Pages/Home/Home';
 import Header from './Components/Header/Header';
+import HomeMain from './Pages/Home/HomeMain/HomeMain';
+import Services from './Pages/ServicesMain/Services/Services';
 
 function App() {
   return (
@@ -9,8 +10,9 @@ function App() {
       {/* header components */}
       <Header></Header>
       <Switch>
-        <Route exact path='/' component={Home}></Route>
-        <Route exact path='/home' component={Home}></Route>
+        <Route path='/' component={HomeMain}></Route>
+        <Route path='/home' component={HomeMain}></Route>
+        <Route path='/services' component={Services}></Route>
       </Switch>
     </Router>
   );
