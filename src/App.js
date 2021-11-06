@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Link, Switch, Route, BrowserRouter} from 'react-router-dom';
 import Header from './Components/Header/Header';
 import HomeMain from './Pages/Home/HomeMain/HomeMain';
-import Services from './Pages/ServicesMain/Services/Services';
+import Appointment from './Pages/Appointment/Appointment';
 
 function App() {
   return (
@@ -10,9 +10,9 @@ function App() {
       {/* header components */}
       <Header></Header>
       <Switch>
-        <Route path='/' component={HomeMain}></Route>
+        <Route exact path='/' component={HomeMain}></Route>
         <Route path='/home' component={HomeMain}></Route>
-        <Route path='/services' component={Services}></Route>
+        <Route path='/appointment' component={Appointment}></Route>
       </Switch>
     </Router>
   );

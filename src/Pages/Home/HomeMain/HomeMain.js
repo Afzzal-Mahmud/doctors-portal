@@ -8,7 +8,14 @@ import './HomeMain.css'
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useHistory } from "react-router-dom";
 function HomeMain() {
+  const history = useHistory()
+
+  function goToAppiontment() {
+    history.push('/appointment')
+  }
+
     return(
         <>
     <Box className='home-main' sx={{ flexGrow: 1 }}>
@@ -21,7 +28,7 @@ function HomeMain() {
           <Typography variant="body2" variant="body2" color="text.secondary">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim incidunt facilis, architecto obcaecati tenetur eos a cumque earum quia provident vel ratione aliquam voluptatem ab soluta quae nulla eveniet impedit!
               </Typography>
-          <Button variant="contained">Appoinment</Button>
+              <Button onClick={goToAppiontment} variant="contained">Appointment</Button>
         </Grid>
         <Grid className='home-img-container' item xs={12} md={6}>
           <img style={{height:'330px'}} src={homeChair} alt="" />
