@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import doctor from '../../images/doctor.png'
 import './Appionment.css'
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 function AppoinmentBanner() {
     return( 
