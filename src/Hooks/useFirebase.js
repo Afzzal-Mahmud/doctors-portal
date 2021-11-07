@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword, signInWithPopup,GoogleAuthProvider } from "firebase/auth";
 
 import initializeFirebase from "../Firebase/firebase.init";
 
@@ -9,17 +9,22 @@ function useFirebase() {
     const [isLoading,setIsLoading] = useState(true)
     const [err,setErr] = useState('')
     const auth = getAuth()
+    const googleProvider = new GoogleAuthProvider()
 
     /* registar user */
-    function registerUser(email,password){
+    function registerUser(email,password,location,history){
         /* when user click the register button the page is on loading state */
         setIsLoading(true)
         createUserWithEmailAndPassword(auth,email,password)
         .then(userCredential => {
             const user = userCredential.user;
-            console.log(user)
             setUser(user)
             setErr('')
+            /* redirect to where user wants to go */
+            const destination = location?.state?.from || '/';
+            history.replace(destination)
+            console.log(user)
+
         }).catch((error) =>{
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -49,9 +54,31 @@ function useFirebase() {
                 /* after loading the page loading is false */
                 setIsLoading(false)
             });
-
     }
+
+    /* google log in */
+
+   function goolgeSignIn(location,history) {
+    isLoading(true)
+    signInWithPopup(auth, googleProvider)
+    const destination = location?.state?.from || '/'
     
+    .then((result) => {
+
+      const user = result.user;
+      history.replace(destination)
+      setErr('')
+
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorMessage = error.message;
+      setErr(errorMessage)
+    }).finally(() =>{
+        isLoading(false)
+    });
+   }
+    
+
     /* logOut User */
     function logOut(){
         setIsLoading(true)
@@ -82,6 +109,7 @@ function useFirebase() {
         user,
         registerUser,
         logInUser,
+        goolgeSignIn,
         isLoading,
         err,
         logOut

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useHistory } from 'react-router-dom'
 
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -15,8 +15,13 @@ import loginImg from '../../images/login.png'
 
 function Register() {
     /* user registration function */
-    const {user,registerUser,isLoading,err} = useAuth()
+    const {user,registerUser,goolgeSignIn,isLoading,err} = useAuth()
     const [logInData,setLogInData] = useState({})
+
+    /* fro user back to wher he wants to go */
+    const location = useLocation()
+    const history = useHistory()
+
     function handleOnChange(e) {
         const field = e.target.name;
         const value = e.target.value;
@@ -31,7 +36,7 @@ function Register() {
             alert('password did not matched')
             return
         }else{
-            registerUser(logInData.email,logInData.password)
+            registerUser(logInData.email,logInData.password,location,history)
         }
     }
     return(
@@ -70,6 +75,10 @@ function Register() {
                             variant="standard" />
 
                         <Button sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Register</Button>
+
+                        {/* google log in */}
+                        <Button onClick={() =>goolgeSignIn(location,history)} sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Register</Button>
+
                         <NavLink
                             style={{ textDecoration: 'none' }}
                             to="/login">
