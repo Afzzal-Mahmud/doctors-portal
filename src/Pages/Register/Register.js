@@ -1,14 +1,21 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+
 import useAuth from '../../Hooks/useAuth'
 import loginImg from '../../images/login.png'
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
 function Register() {
     /* user registration function */
-    const {registerUser,isLoading} = useAuth()
+    const {user,registerUser,isLoading,err} = useAuth()
     const [logInData,setLogInData] = useState({})
     function handleOnChange(e) {
         const field = e.target.name;
@@ -72,6 +79,17 @@ function Register() {
                         </NavLink>
                         
                     </form>}
+
+            {user?.email && 
+            <Alert severity="success" color="info">
+                Account created successfully — check it out!
+            </Alert>}
+
+            {err && 
+            <Alert severity="error">
+                {err}
+            </Alert>}
+
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: '100%' }} src={loginImg} alt="" />

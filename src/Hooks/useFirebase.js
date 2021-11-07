@@ -7,6 +7,7 @@ initializeFirebase()
 function useFirebase() {
     const [user,setUser] = useState({})
     const [isLoading,setIsLoading] = useState(true)
+    const [err,setErr] = useState('')
     const auth = getAuth()
 
     /* registar user */
@@ -18,9 +19,11 @@ function useFirebase() {
             const user = userCredential.user;
             console.log(user)
             setUser(user)
+            setErr('')
         }).catch((error) =>{
             const errorCode = error.code;
             const errorMessage = error.message;
+            setErr(errorMessage)
             console.log('create user error',errorCode,errorMessage)
         }).finally(() =>{
             /* after loading the page loading is false */
@@ -34,10 +37,12 @@ function useFirebase() {
             .then((userCredential) => {
                 const user = userCredential.user;
                 // setUser()
+                setErr('')
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                setErr('password is incorrect or you do not have any account')
                 console.log('login user error',errorCode,errorMessage)
             }).finally(() =>{
                 /* after loading the page loading is false */
@@ -77,6 +82,7 @@ function useFirebase() {
         registerUser,
         logInUser,
         isLoading,
+        err,
         logOut
     }
 }
