@@ -22,7 +22,7 @@ function Register() {
     const location = useLocation()
     const history = useHistory()
 
-    function handleOnChange(e) {
+    function handleOnBlur(e) {
         const field = e.target.name;
         const value = e.target.value;
         const newLogInData = {...logInData}
@@ -36,7 +36,7 @@ function Register() {
             alert('password did not matched')
             return
         }else{
-            registerUser(logInData.email,logInData.password,location,history)
+            registerUser(logInData.email,logInData.password,location,history,logInData.name)
         }
     }
     return(
@@ -51,10 +51,18 @@ function Register() {
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
+                            label="Your Name"
+                            type="text"
+                            name="name"
+                            onBlur={handleOnBlur}
+                            variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
                             label="Your Email"
                             type="email"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -62,7 +70,7 @@ function Register() {
                             label="Your Password"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
 
                         <TextField
@@ -71,13 +79,13 @@ function Register() {
                             label="Confirm password"
                             type="password"
                             name="password2"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
 
                         <Button sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Register</Button>
 
                         {/* google log in */}
-                        <Button onClick={() =>goolgeSignIn(location,history)} sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Register</Button>
+                        <Button onClick={() =>goolgeSignIn(location,history)} sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Log In With Google</Button>
 
                         <NavLink
                             style={{ textDecoration: 'none' }}

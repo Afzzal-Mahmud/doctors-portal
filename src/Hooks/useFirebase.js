@@ -12,18 +12,19 @@ function useFirebase() {
     const googleProvider = new GoogleAuthProvider()
 
     /* registar user */
-    function registerUser(email,password,location,history){
+    function registerUser(email,password,location,history,userName){
         /* when user click the register button the page is on loading state */
         setIsLoading(true)
         createUserWithEmailAndPassword(auth,email,password)
         .then(userCredential => {
             const user = userCredential.user;
+            user.displayName = userName
             setUser(user)
             setErr('')
             /* redirect to where user wants to go */
             const destination = location?.state?.from || '/';
             history.replace(destination)
-            console.log(user)
+            console.log('create user console',user)
 
         }).catch((error) =>{
             const errorCode = error.code;
@@ -59,7 +60,7 @@ function useFirebase() {
     /* google log in */
 
    function goolgeSignIn(location,history) {
-    isLoading(true)
+    setIsLoading(true)
     signInWithPopup(auth, googleProvider)
     const destination = location?.state?.from || '/'
     
@@ -74,7 +75,7 @@ function useFirebase() {
       const errorMessage = error.message;
       setErr(errorMessage)
     }).finally(() =>{
-        isLoading(false)
+        setIsLoading(false)
     });
    }
     
