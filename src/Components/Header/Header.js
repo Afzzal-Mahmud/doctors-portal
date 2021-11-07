@@ -38,9 +38,10 @@ function Header() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               News
             </Typography>
+            {/* conditioknal rendar based on uesr account */}
             {
-              user?.email ? <Button onClick={goLogIn} color="inherit">Log In</Button>
-              : <Button onClick={logOut} color="inherit">Log Out</Button>
+              user?.email ? <Button onClick={logOut} color="inherit">Log Out</Button>
+              : <Button onClick={goLogIn} color="inherit">Log In</Button>
             }
           </Toolbar>
         </AppBar>

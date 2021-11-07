@@ -6,10 +6,13 @@ import initializeFirebase from "../Firebase/firebase.init";
 initializeFirebase()
 function useFirebase() {
     const [user,setUser] = useState({})
+    const [isLoading,setIsLoading] = useState(true)
     const auth = getAuth()
 
     /* registar user */
     function registerUser(email,password){
+        /* when user click the register button the page is on loading state */
+        setIsLoading(true)
         createUserWithEmailAndPassword(auth,email,password)
         .then(userCredential => {
             const user = userCredential.user;
@@ -19,6 +22,9 @@ function useFirebase() {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log('create user error',errorCode,errorMessage)
+        }).finally(() =>{
+            /* after loading the page loading is false */
+            setIsLoading(false)
         })
     }
 
@@ -33,19 +39,26 @@ function useFirebase() {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log('login user error',errorCode,errorMessage)
+            }).finally(() =>{
+                /* after loading the page loading is false */
+                setIsLoading(false)
             });
 
     }
     
     /* logOut User */
     function logOut(){
+        setIsLoading(true)
         signOut(auth).then(() => {
             setUser({})
         }).catch((error) => { 
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log('logOut user error',errorCode,errorMessage)
-          });
+          }).finally(() =>{
+            /* after loading the page loading is false */
+            setIsLoading(false)
+        });
     }
     /* onAuthStateChange to observ user*/
     useEffect(() =>{
@@ -55,6 +68,7 @@ function useFirebase() {
             } else {
               setUser({})
             }
+            setIsLoading(false)
           });
           return () => unsubscribe
     },[])
@@ -62,6 +76,7 @@ function useFirebase() {
         user,
         registerUser,
         logInUser,
+        isLoading,
         logOut
     }
 }
