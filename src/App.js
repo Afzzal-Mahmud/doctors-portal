@@ -6,6 +6,7 @@ import Appointment from './Pages/Appointment/Appointment';
 import LogIn from './Pages/LogIn/LogIn';
 import Register from './Pages/Register/Register';
 import AuthProvider from './Context/AuthProvider';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
       <Switch>
         <Route exact path='/' component={HomeMain}></Route>
         <Route path='/home' component={HomeMain}></Route>
-        <Route path='/appointment' component={Appointment}></Route>
+        <PrivateRoute path='/appointment'>
+          <Appointment />
+        </PrivateRoute>
         <Route path='/login' component={LogIn}></Route>
         <Route path='/register' component={Register}></Route>
       </Switch>
