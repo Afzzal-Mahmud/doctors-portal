@@ -27,6 +27,7 @@ function Header() {
               Appionment
             </Typography>
             </Link>
+            <Link to='login'>Log In</Link>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               News
             </Typography>
