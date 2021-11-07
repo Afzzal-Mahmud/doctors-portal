@@ -5,10 +5,12 @@ import HomeMain from './Pages/Home/HomeMain/HomeMain';
 import Appointment from './Pages/Appointment/Appointment';
 import LogIn from './Pages/LogIn/LogIn';
 import Register from './Pages/Register/Register';
+import AuthProvider from './Context/AuthProvider';
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       {/* header components */}
       <Header></Header>
       <Switch>
@@ -19,6 +21,7 @@ function App() {
         <Route path='/register' component={Register}></Route>
       </Switch>
     </Router>
+    </AuthProvider>
   );
 }
 

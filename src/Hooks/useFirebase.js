@@ -65,3 +65,4 @@ function useFirebase() {
         logOut
     }
 }
+export default useFirebase
