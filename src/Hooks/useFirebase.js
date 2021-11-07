@@ -23,7 +23,7 @@ function useFirebase() {
     }
 
     /* logIn user */
-    function logInUser() {
+    function logInUser(email,password) {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
