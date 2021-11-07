@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useHistory } from 'react-router-dom'
 
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -15,6 +15,11 @@ import loginImg from '../../images/login.png'
 function LogIn() {
     const {user,logInUser,isLoading,err} = useAuth()
     const [logInData,setLogInData] = useState({})
+
+    /* fro user back to wher he wants to go */
+    const location = useLocation()
+    const history = useHistory()
+
     function handleOnChange(e) {
         const field = e.target.name;
         const value = e.target.value;
@@ -25,6 +30,7 @@ function LogIn() {
     }
     function handleLogInSubmit(e){
         e.preventDefault()
+        logInUser(logInData.email,logInData.password,location,history)
     }
     return(
         <Container>

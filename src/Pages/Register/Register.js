@@ -40,10 +40,8 @@ function Register() {
                 <Grid item sx={{ mt: 8 }} xs={12} md={6}>
                     <Typography variant="body1" gutterBottom>Register</Typography>
                     {/* if the loading state is true then show the spinar */}
-                    {isLoading ?  
-                    <Box sx={{ display: 'flex'}}>
-                        <CircularProgress sx={{ textAlign: 'center' }} />
-                     </Box> :
+                    {!isLoading && 
+                   
                         <form onSubmit={handleLogInSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -78,13 +76,19 @@ function Register() {
                             <Button variant="text">Already Register ? LogIn</Button>
                         </NavLink>
                         
-                    </form>}
+                    </form> }
 
+            {isLoading &&
+                    <Box sx={{ display: 'flex'}}>
+                    <CircularProgress sx={{ textAlign: 'center' }} />
+                </Box> 
+            }
+            {/* see the successfully login */}
             {user?.email && 
             <Alert severity="success" color="info">
                 Account created successfully — check it out!
             </Alert>}
-
+                {/* show error */}
             {err && 
             <Alert severity="error">
                 {err}

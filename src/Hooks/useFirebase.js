@@ -32,11 +32,12 @@ function useFirebase() {
     }
 
     /* logIn user */
-    function logInUser(email,password) {
+    function logInUser(email,password,location,history) {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                const destination = location?.state?.from || '/'
                 const user = userCredential.user;
-                // setUser()
+                history.replace(destination)
                 setErr('')
             })
             .catch((error) => {
