@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
+import useAuth from "../../../Hooks/useAuth";
 
 const style = {
   position: 'absolute',
@@ -19,11 +20,20 @@ const style = {
   p: 4,
 };
 function BookingModal({handleBookingClose,openBooking,bookingData}){
+    const {user} = useAuth()
     const {name,time} = bookingData
     function collectData(e){
       alert('submiting')
       e.preventDefault()
     } 
+
+    /* handle appiontment onBlur */
+
+    function handleAppiontmentOnBlur(e) {
+      e.preventDefault()
+      console.log('clicked')
+    }
+
     return(
       <div>
       <Modal
@@ -39,15 +49,26 @@ function BookingModal({handleBookingClose,openBooking,bookingData}){
       >
         <Fade in={openBooking}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            {/* type of appiontment */}
+            <Typography name='appiontmentType' onBlur={handleAppiontmentOnBlur} id="transition-modal-title" variant="h6" component="h2">
               {name}
             </Typography>
-            <form>
-            <TextField disabled sx={{width:"100%",my:1}} id="outlined-size-small" defaultValue={time} size="small"/>
-            <TextField sx={{width:"100%",my:1}} id="standard-basic" label="Name" variant="standard" />
-            <TextField sx={{width:"100%",my:1}} id="standard-basic" label="E-mail" variant="standard" />
-            <TextField sx={{width:"100%",my:1}} id="standard-basic" label="Phone" variant="standard" />
-            <Button onClick={collectData} sx={{width:"100%",my:1}} variant="contained">Approve</Button>
+            <form onSubmit={handleAppiontmentOnBlur}>
+            
+            {/* time of appiontment */}
+            <TextField disabled sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="outlined-size-small" name='appiontmentTime' defaultValue={time} size="small"/>
+
+            {/* patient name */}
+            <TextField name='patientName' defaultValue={user.displayName} sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="standard-basic" label="Patient Name" variant="standard" />
+            
+            {/* patient email */}
+            <TextField name='email' defaultValue={user.email} sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="standard-basic" label="E-mail" variant="standard" />
+            
+            {/* patient phone */}
+            <TextField name='phone' sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="standard-basic" label="Phone" variant="standard" />
+
+            <Button type='submit' onClick={collectData} sx={{width:"100%",my:1}} variant="contained">Approve</Button>
+
             </form>
           </Box>
         </Fade>

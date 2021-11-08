@@ -70,10 +70,9 @@ function useFirebase() {
    function goolgeSignIn(location,history) {
     setIsLoading(true)
     signInWithPopup(auth, googleProvider)
-    const destination = location?.state?.from || '/'
     
     .then((result) => {
-
+    const destination = location?.state?.from || '/'
       const user = result.user;
       history.replace(destination)
       setErr('')
