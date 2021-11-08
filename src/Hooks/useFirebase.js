@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword, signInWithPopup,GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword, signInWithPopup,GoogleAuthProvider,updateProfile  } from "firebase/auth";
 
 import initializeFirebase from "../Firebase/firebase.init";
 
@@ -18,8 +18,16 @@ function useFirebase() {
         createUserWithEmailAndPassword(auth,email,password)
         .then(userCredential => {
             const user = userCredential.user;
-            user.displayName = userName
+            user.name = userName
             setUser(user)
+            /* send user name to firebase */
+            updateProfile(auth.currentUser, {
+                displayName: userName
+              }).then(() => {
+                // Profile updated!
+              }).catch((error) => {
+                console.log(error.message)
+              });
             setErr('')
             /* redirect to where user wants to go */
             const destination = location?.state?.from || '/';
