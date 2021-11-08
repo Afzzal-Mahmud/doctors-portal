@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import BookingModal from '../Modal/BookingModal'
 
-function AppiontmentCard({ bookingData }) {
+function AppiontmentCard({ bookingData,currentDate }) {
   const { name, time } = bookingData
   const [openBooking, setOpenBooking] = React.useState(false);
   const handleBookingOpen = () => setOpenBooking(true);
@@ -33,6 +33,7 @@ function AppiontmentCard({ bookingData }) {
             bookingData={bookingData}
             handleBookingClose={handleBookingClose}
             openBooking={openBooking}
+            currentDate ={currentDate}
           ></BookingModal>
           </Card>
         </Grid>

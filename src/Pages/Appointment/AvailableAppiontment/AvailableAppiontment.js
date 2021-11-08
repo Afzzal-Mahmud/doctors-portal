@@ -23,6 +23,8 @@ function AvailableAppiontment({currentDate}) {
             appiontmentCard.map(singleCard => <AppiontmentCard
             key={singleCard.key}
             bookingData = {singleCard}
+            /* send current date to appiontment card then BookingModal */
+            currentDate = {currentDate}
             ></AppiontmentCard>)
           }
             </Grid>

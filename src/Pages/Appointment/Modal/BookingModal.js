@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -19,20 +19,43 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function BookingModal({handleBookingClose,openBooking,bookingData}){
+function BookingModal({handleBookingClose,openBooking,bookingData,currentDate}){
     const {user} = useAuth()
     const {name,time} = bookingData
-    function collectData(e){
-      alert('submiting')
+    
+    /* user initial info from his login status */
+    const initialInfo = {
+      patientName : user.displayName,
+      email : user.email,
+      phone : ''
+    }
+
+    const [appiontmentInfo,setAppiontmentInfo] = useState(initialInfo)
+
+    /* collecting appiontment data */
+    function collectAppiontmentData(e){
       e.preventDefault()
+      /* collect user appiontment data */
+      const userAppiontmentInfo = {...appiontmentInfo,
+                                  appiontmentType:name,
+                                  appiontmentDate : currentDate.toDateString(),
+                                  appiontmentTime : time
+                                }
+                                console.log(userAppiontmentInfo)
     } 
 
     /* handle appiontment onBlur */
 
     function handleAppiontmentOnBlur(e) {
-      e.preventDefault()
-      console.log('clicked')
+      /* which text area you clicked */
+      const field = e.target.name;
+      const value = e.target.value;
+      /* ek shate onekgula state ke update korte hole ager info ta copy kore nite hoy */
+      const updatedAppiontmentInfo = {...appiontmentInfo}
+      updatedAppiontmentInfo[field] = value
+      setAppiontmentInfo(updatedAppiontmentInfo)
     }
+
 
     return(
       <div>
@@ -58,6 +81,9 @@ function BookingModal({handleBookingClose,openBooking,bookingData}){
             {/* time of appiontment */}
             <TextField disabled sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="outlined-size-small" name='appiontmentTime' defaultValue={time} size="small"/>
 
+            {/* date of appiontment */}
+            <TextField disabled sx={{width:"100%",my:1}}  id="outlined-size-small" name='appiontmentDate' defaultValue={currentDate.toDateString()} size="small"/>
+
             {/* patient name */}
             <TextField name='patientName' defaultValue={user.displayName} sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="standard-basic" label="Patient Name" variant="standard" />
             
@@ -67,7 +93,7 @@ function BookingModal({handleBookingClose,openBooking,bookingData}){
             {/* patient phone */}
             <TextField name='phone' sx={{width:"100%",my:1}} onBlur={handleAppiontmentOnBlur} id="standard-basic" label="Phone" variant="standard" />
 
-            <Button type='submit' onClick={collectData} sx={{width:"100%",my:1}} variant="contained">Approve</Button>
+            <Button type='submit' onClick={collectAppiontmentData} sx={{width:"100%",my:1}} variant="contained">Approve</Button>
 
             </form>
           </Box>
